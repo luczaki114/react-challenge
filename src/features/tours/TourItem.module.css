@@ -1,4 +1,6 @@
 .tourItem {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     margin-bottom: 20px;
 }
@@ -15,15 +17,31 @@
     padding-bottom: 5px;
 }
 
-.tourItem img {
-    display: block;
-    z-index: 5;
+.tourItem .imgWrapper {
+    position: relative;
+    padding-top: 288px;
     width: 288px;
-    height: 288px;
     margin: 0 auto;
 }
 
+.tourItem img {
+    position: absolute;
+    top: 0;
+    display: block;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+}
+
+@media only screen and (min-width: 900px) {
+    .tourItem .imgWrapper {
+        width: 100%;    
+        padding-top: 100%;
+    }
+}
+
 button {
+    flex-grow: 1;
     border: 3px solid green;
     border-radius: 5px;
     width: 100%;

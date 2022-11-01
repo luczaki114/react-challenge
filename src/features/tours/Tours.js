@@ -1,7 +1,7 @@
 import React from 'react';
 import TourItem from './TourItem.js';
 import tourData from '../../assets/tourdata.json';
-import { MenuItem, Select } from '@mui/material';
+import { MenuItem, Select, Grid } from '@mui/material';
 import styles from './Tours.module.css';
 import { ShoppingCartRounded } from '@mui/icons-material';
 import { useCart } from './useCart.js';
@@ -43,7 +43,7 @@ function Tours() {
                     />
                 </div>
             </div>
-            <section className={styles.toursContainer}>
+            <Grid container spacing={3} >
                 {tourData.map((tour) =>
                     <TourItem 
                         key={tour.id}
@@ -52,7 +52,7 @@ function Tours() {
                         deleteFromCart={deleteFromCart}
                     />
                 )}
-            </section>
+            </Grid>
         </>
     );
 }
