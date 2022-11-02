@@ -1,10 +1,11 @@
 import React from 'react';
 import TourItem from './TourItem.js';
 import tourData from '../../assets/tourdata.json';
-import { MenuItem, Select, Grid } from '@mui/material';
+import { MenuItem, Select, Grid, InputLabel, FormControl } from '@mui/material';
 import styles from './Tours.module.css';
 import { ShoppingCartRounded } from '@mui/icons-material';
 import { useCart } from './useCart.js';
+import { useCurrency } from './useCurrency.js';
 
 function Tours() {
 
@@ -15,8 +16,14 @@ function Tours() {
         deleteFromCart
     } = useCart();
 
+    const {
+        currency,
+        setCurrency,
+        getCurrencyConversion
+    } = useCurrency();
+
     const handleChange = (event) => {
-        console.log(event.target.value);
+        setCurrency(event.target.value);
     }
 
     return (
@@ -24,20 +31,23 @@ function Tours() {
             <h2>Tours</h2>
             <div className={styles.tourHeader}>
                 <div className={styles.filters}>
-                    <Select
-                        labelId="currency-label"
-                        id="currency"
-                        value={0}
-                        label="Currency"
-                        onChange={handleChange}
-                        className={styles.dropdown}
-                    >
-                        <MenuItem value={0}>USD</MenuItem>
-                        <MenuItem value={1}>EUR</MenuItem>
-                    </Select>
+                    <FormControl>
+                        <InputLabel id="currency-label">Currency</InputLabel>
+                        <Select
+                            labelId="currency-label"
+                            id="currency"
+                            value={currency}
+                            label="Currency"
+                            onChange={handleChange}
+                            className={styles.dropdown}
+                        >
+                            <MenuItem value={0}>USD</MenuItem>
+                            <MenuItem value={1}>EUR</MenuItem>
+                        </Select>
+                    </FormControl>
                 </div>
                 <div className={styles.cartContainer}>
-                    {cartTotal > 0 ? <span className={styles.cartTotal}>${cartTotal}</span>: null}
+                    {cartTotal > 0 ? <span className={styles.cartTotal}>{getCurrencyConversion(cartTotal)}</span>: null}
                     <ShoppingCartRounded 
                         className={styles.cart}
                         fontSize={'large'}
